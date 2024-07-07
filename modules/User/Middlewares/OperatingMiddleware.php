@@ -28,6 +28,8 @@ class OperatingMiddleware
      */
     public function terminate(Request $request, Response $response): void
     {
-        app(LogOperate::class)->log($request, $response);
+        if ($request->getMethod() !== 'GET') {
+            (new LogOperate())->log($request, $response);
+        }
     }
 }
